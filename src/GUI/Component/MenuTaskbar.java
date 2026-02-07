@@ -1,5 +1,30 @@
 package GUI.Component;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics2D;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
+
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+
 import DAO.ChiTietQuyenDAO;
 import DAO.NhanVienDAO;
 import DAO.NhomQuyenDAO;
@@ -9,7 +34,7 @@ import DTO.NhomQuyenDTO;
 import DTO.TaiKhoanDTO;
 import GUI.Log_In;
 import GUI.Main;
-import GUI.Panel.ChuyenKho;
+import GUI.Dialog.MyAccount;
 import GUI.Panel.KhachHang;
 import GUI.Panel.KhuVucKho;
 import GUI.Panel.NhaCungCap;
@@ -21,18 +46,7 @@ import GUI.Panel.QuanLyThuocTinhSP;
 import GUI.Panel.SanPham;
 import GUI.Panel.TaiKhoan;
 import GUI.Panel.TrangChu;
-import com.formdev.flatlaf.extras.FlatSVGIcon;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import GUI.Dialog.MyAccount;
-import GUI.Panel.PhieuKiemKe;
 import GUI.Panel.ThongKe.ThongKe;
-import java.awt.image.BufferedImage;
-import java.awt.geom.Ellipse2D;
 
 //import GUI.Component.itemTaskbar;
 public class MenuTaskbar extends JPanel {

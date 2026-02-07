@@ -1,14 +1,6 @@
 
 package DAO;
 
-import DTO.ThongKe.ThongKeDoanhThuDTO;
-import DTO.ThongKe.ThongKeKhachHangDTO;
-import DTO.ThongKe.ThongKeNhaCungCapDTO;
-import DTO.ThongKe.ThongKeTheoThangDTO;
-import DTO.ThongKe.ThongKeTonKhoDTO;
-import DTO.ThongKe.ThongKeTungNgayTrongThangDTO;
-import config.JDBCUtil;
-import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,10 +8,16 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashMap;
+
+import DTO.ThongKe.ThongKeDoanhThuDTO;
+import DTO.ThongKe.ThongKeKhachHangDTO;
+import DTO.ThongKe.ThongKeNhaCungCapDTO;
+import DTO.ThongKe.ThongKeTheoThangDTO;
+import DTO.ThongKe.ThongKeTonKhoDTO;
+import DTO.ThongKe.ThongKeTungNgayTrongThangDTO;
+import config.JDBCUtil;
 
 public class ThongKeDAO {
 

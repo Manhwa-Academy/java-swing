@@ -1,24 +1,9 @@
 package GUI.Panel;
 
-import BUS.NhaCungCapBUS;
-import BUS.NhanVienBUS;
-import BUS.PhieuKiemKeBUS;
-import DTO.SanPhamDTO;
-import BUS.SanPhamBUS;
-import DTO.NhanVienDTO;
-import DTO.PhieuKiemKeDTO;
-import GUI.Component.InputDate;
-import GUI.Component.InputForm;
-
-import GUI.Component.IntegratedSearch;
-import GUI.Component.MainFunction;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import GUI.Component.PanelBorderRadius;
-import GUI.Component.SelectForm;
-import GUI.Main;
-import helper.Formater;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -28,16 +13,38 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.ParseException;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
-import javax.swing.text.PlainDocument;
+
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+import BUS.NhaCungCapBUS;
+import BUS.NhanVienBUS;
+import BUS.PhieuKiemKeBUS;
+import BUS.SanPhamBUS;
+import DTO.NhanVienDTO;
+import DTO.PhieuKiemKeDTO;
+import DTO.SanPhamDTO;
+import GUI.Main;
+import GUI.Component.InputDate;
+import GUI.Component.InputForm;
+import GUI.Component.IntegratedSearch;
+import GUI.Component.MainFunction;
+import GUI.Component.PanelBorderRadius;
+import GUI.Component.SelectForm;
+import helper.Formater;
 
 public class PhieuKiemKe extends JPanel implements ActionListener, PropertyChangeListener ,ItemListener, KeyListener {
 

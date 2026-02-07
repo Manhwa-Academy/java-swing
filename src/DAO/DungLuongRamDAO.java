@@ -1,16 +1,16 @@
 
 package DAO;
 
-import DTO.ThuocTinhSanPham.DungLuongRamDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import config.JDBCUtil;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.ArrayList;
+
+import DTO.ThuocTinhSanPham.DungLuongRamDTO;
+import config.JDBCUtil;
 
 public class DungLuongRamDAO implements DAOinterface<DungLuongRamDTO> {
 

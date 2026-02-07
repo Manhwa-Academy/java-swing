@@ -32,7 +32,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-
 public final class ThongKeDoanhThuTuNgayDenNgay extends JPanel {
 
     PanelBorderRadius pnlChart;
@@ -87,29 +86,27 @@ public final class ThongKeDoanhThuTuNgayDenNgay extends JPanel {
         });
 
         dateFrom.addPropertyChangeListener("date", e -> {
-            Date date = (Date) e.getNewValue();
             try {
-                if (validateSelectDate()) {
-                }
+                validateSelectDate();
             } catch (ParseException ex) {
-                Logger.getLogger(ThongKeDoanhThuTuNgayDenNgay.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ThongKeDoanhThuTuNgayDenNgay.class.getName())
+                        .log(Level.SEVERE, null, ex);
             }
         });
 
         dateTo.addPropertyChangeListener("date", e -> {
-            Date date = (Date) e.getNewValue();
             try {
-                if (validateSelectDate()) {
-                }
+                validateSelectDate();
             } catch (ParseException ex) {
-                Logger.getLogger(ThongKeDoanhThuTuNgayDenNgay.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ThongKeDoanhThuTuNgayDenNgay.class.getName())
+                        .log(Level.SEVERE, null, ex);
             }
         });
 
         tableThongKe = new JTable();
         scrollTableThongKe = new JScrollPane();
         tblModel = new DefaultTableModel();
-        String[] header = new String[]{"Ngày", "Chi phí", "Doanh thu", "Lợi nhuận"};
+        String[] header = new String[] { "Ngày", "Chi phí", "Doanh thu", "Lợi nhuận" };
         tblModel.setColumnIdentifiers(header);
         tableThongKe.setModel(tblModel);
         tableThongKe.setAutoCreateRowSorter(true);
@@ -161,17 +158,20 @@ public final class ThongKeDoanhThuTuNgayDenNgay extends JPanel {
 
         Date current_date = new Date();
         if (time_start != null && time_start.after(current_date)) {
-            JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày hiện tại", "Lỗi !", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày hiện tại", "Lỗi !",
+                    JOptionPane.ERROR_MESSAGE);
             dateFrom.setCalendar(null);
             return false;
         }
         if (time_end != null && time_end.after(current_date)) {
-            JOptionPane.showMessageDialog(this, "Ngày kết thúc không được lớn hơn ngày hiện tại", "Lỗi !", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ngày kết thúc không được lớn hơn ngày hiện tại", "Lỗi !",
+                    JOptionPane.ERROR_MESSAGE);
             dateTo.setCalendar(null);
             return false;
         }
         if (time_start != null && time_end != null && time_start.after(time_end)) {
-            JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn ngày bắt đầu", "Lỗi !", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn ngày bắt đầu", "Lỗi !",
+                    JOptionPane.ERROR_MESSAGE);
             dateTo.setCalendar(null);
             return false;
         }
@@ -182,8 +182,9 @@ public final class ThongKeDoanhThuTuNgayDenNgay extends JPanel {
         ArrayList<ThongKeTungNgayTrongThangDTO> list = thongkeBUS.getThongKeTuNgayDenNgay(start, end);
         tblModel.setRowCount(0);
         for (int i = 0; i < list.size(); i++) {
-            tblModel.addRow(new Object[]{
-                list.get(i).getNgay(), Formater.FormatVND(list.get(i).getChiphi()), Formater.FormatVND(list.get(i).getDoanhthu()), Formater.FormatVND(list.get(i).getLoinhuan())
+            tblModel.addRow(new Object[] {
+                    list.get(i).getNgay(), Formater.FormatVND(list.get(i).getChiphi()),
+                    Formater.FormatVND(list.get(i).getDoanhthu()), Formater.FormatVND(list.get(i).getLoinhuan())
             });
         }
     }

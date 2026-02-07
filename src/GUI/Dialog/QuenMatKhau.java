@@ -1,10 +1,5 @@
 package GUI.Dialog;
 
-import DAO.TaiKhoanDAO;
-import DTO.TaiKhoanDTO;
-import helper.SendEmailSMTP;
-import com.formdev.flatlaf.FlatLightLaf;
-import helper.BCrypt;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -17,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -24,9 +20,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
+import DAO.TaiKhoanDAO;
+import DTO.TaiKhoanDTO;
+import helper.BCrypt;
+import helper.SendEmailSMTP;
 
 public class QuenMatKhau extends JDialog implements ActionListener {
 
@@ -122,13 +120,12 @@ public class QuenMatKhau extends JDialog implements ActionListener {
 
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == btnSendMail) {
-//            c.next(jpMain);
-            //Test pull github
+            // c.next(jpMain);
+            // Test pull github
             String email = txtEmail.getText().trim();
             if (email.equals("")) {
                 JOptionPane.showMessageDialog(this, "Vui lòng không để trống email");
@@ -152,36 +149,44 @@ public class QuenMatKhau extends JDialog implements ActionListener {
                     }
                 }
             }
-        } else if(e.getSource() == btnConfirmOTP){
+        } else if (e.getSource() == btnConfirmOTP) {
             String otp = txtOTP.getText().trim();
-            if(otp.equals("")){
+            if (otp.equals("")) {
                 JOptionPane.showMessageDialog(this, "Vui lòng không để trống mã OTP");
             } else {
                 Pattern digitPattern = Pattern.compile("\\d{6}");
                 Matcher matcher = digitPattern.matcher(otp);
-                if(matcher.matches() == false){
+                if (matcher.matches() == false) {
                     JOptionPane.showMessageDialog(this, "Vui lòng nhập mã OTP có 6 chữ số!");
                 } else {
                     boolean check = TaiKhoanDAO.getInstance().checkOtp(this.emailCheck, otp);
-                   if(check){
-                       CardLayout c = (CardLayout) jpMain.getLayout();
-                       c.next(jpMain);
-                   } else{
-                       JOptionPane.showMessageDialog(this, "Mã OTP không khớp");
-                   }
+                    if (check) {
+                        CardLayout c = (CardLayout) jpMain.getLayout();
+                        c.next(jpMain);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Mã OTP không khớp");
+                    }
                 }
             }
-        } else if (e.getSource() == btnChangePass){
-            String pass = txtPassword.getText().trim();
-            if(pass.equals("")){
+        } else if (e.getSource() == btnChangePass) {
+
+            char[] passChars = txtPassword.getPassword();
+            String pass = new String(passChars).trim();
+
+            if (pass.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập mật khẩu");
             } else {
-                String password = BCrypt.hashpw(pass, BCrypt.gensalt(12));
-                TaiKhoanDAO.getInstance().updatePass(this.emailCheck, password);
+                String passwordHash = BCrypt.hashpw(pass, BCrypt.gensalt(12));
+                TaiKhoanDAO.getInstance().updatePass(this.emailCheck, passwordHash);
                 TaiKhoanDAO.getInstance().sendOpt(emailCheck, "null");
-               JOptionPane.showMessageDialog(this, "Thay đổi mật khẩu thành công");
-               this.dispose();
+
+                JOptionPane.showMessageDialog(this, "Thay đổi mật khẩu thành công");
+                this.dispose();
             }
+
+            // 🔒 xoá mật khẩu khỏi memory
+            java.util.Arrays.fill(passChars, '\0');
         }
+
     }
 }

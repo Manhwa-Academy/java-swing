@@ -1,11 +1,22 @@
 package GUI.Panel;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+
+import GUI.Main;
 import GUI.Component.IntegratedSearch;
 import GUI.Component.MainFunction;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import GUI.Component.PanelBorderRadius;
 import GUI.Component.itemTaskbar;
 import GUI.Dialog.ThuocTinhSanPham.DungLuongRamDialog;
 import GUI.Dialog.ThuocTinhSanPham.DungLuongRomDialog;
@@ -13,11 +24,6 @@ import GUI.Dialog.ThuocTinhSanPham.HeDieuHanhDialog;
 import GUI.Dialog.ThuocTinhSanPham.MauSacDialog;
 import GUI.Dialog.ThuocTinhSanPham.ThuongHieuDialog;
 import GUI.Dialog.ThuocTinhSanPham.XuatXuDialog;
-import GUI.Main;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class QuanLyThuocTinhSP extends JPanel {
 

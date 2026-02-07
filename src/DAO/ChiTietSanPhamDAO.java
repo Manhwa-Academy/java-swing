@@ -1,16 +1,15 @@
 package DAO;
 
-import DTO.ChiTietSanPhamDTO;
-import DTO.KhuVucKhoDTO;
-import config.JDBCUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import DTO.ChiTietSanPhamDTO;
+import config.JDBCUtil;
 
 /**
  *

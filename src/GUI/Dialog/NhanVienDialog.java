@@ -1,17 +1,6 @@
 
 package GUI.Dialog;
 
-import BUS.NhanVienBUS;
-import DAO.NhanVienDAO;
-import DTO.NhanVienDTO;
-import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JDateChooser;
-import GUI.Component.ButtonCustom;
-import GUI.Component.HeaderTitle;
-import GUI.Component.InputDate;
-import GUI.Component.InputForm;
-import GUI.Component.NumericDocumentFilter;
-import helper.Validation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,11 +8,9 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.AbstractButton;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -35,6 +22,16 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.PlainDocument;
+
+import BUS.NhanVienBUS;
+import DAO.NhanVienDAO;
+import DTO.NhanVienDTO;
+import GUI.Component.ButtonCustom;
+import GUI.Component.HeaderTitle;
+import GUI.Component.InputDate;
+import GUI.Component.InputForm;
+import GUI.Component.NumericDocumentFilter;
+import helper.Validation;
 
 public class NhanVienDialog extends JDialog {
 

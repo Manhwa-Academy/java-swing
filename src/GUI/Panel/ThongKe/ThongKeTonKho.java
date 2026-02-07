@@ -38,7 +38,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-
 public final class ThongKeTonKho extends JPanel implements ActionListener, KeyListener, PropertyChangeListener {
 
     PanelBorderRadius nhapxuat_left, nhapxuat_center;
@@ -107,7 +106,8 @@ public final class ThongKeTonKho extends JPanel implements ActionListener, KeyLi
         tblTonKho = new JTable();
         scrollTblTonKho = new JScrollPane();
         tblModel = new DefaultTableModel();
-        String[] header = new String[]{"STT", "Mã SP", "Tên sản phẩm", "Tồn đầu kỳ", "Nhập trong kỳ", "Xuất trong kỳ", "Tồn cuối kỳ"};
+        String[] header = new String[] { "STT", "Mã SP", "Tên sản phẩm", "Tồn đầu kỳ", "Nhập trong kỳ", "Xuất trong kỳ",
+                "Tồn cuối kỳ" };
         tblModel.setColumnIdentifiers(header);
         tblTonKho.setModel(tblModel);
         tblTonKho.setAutoCreateRowSorter(true);
@@ -143,13 +143,14 @@ public final class ThongKeTonKho extends JPanel implements ActionListener, KeyLi
     }
 
     private void tblTonKhoClicked(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
+
         if (evt.getClickCount() == 2) {
             if (tblTonKho.getSelectedRow() == -1) {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm");
             } else {
                 int masp = (int) tblTonKho.getModel().getValueAt(tblTonKho.getSelectedRow(), 1);
-                ThongKePBSPTonKho sppp = new ThongKePBSPTonKho((JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), "Chi tiết tồn kho từng cấu hình", true, listSp.get(masp));
+                new ThongKePBSPTonKho((JFrame) javax.swing.SwingUtilities.getWindowAncestor(this),
+                        "Chi tiết tồn kho từng cấu hình", true, listSp.get(masp));
             }
         }
     }
@@ -177,17 +178,20 @@ public final class ThongKeTonKho extends JPanel implements ActionListener, KeyLi
 
         Date current_date = new Date();
         if (time_start != null && time_start.after(current_date)) {
-            JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày hiện tại", "Lỗi !", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày hiện tại", "Lỗi !",
+                    JOptionPane.ERROR_MESSAGE);
             start_date.getDateChooser().setCalendar(null);
             return false;
         }
         if (time_end != null && time_end.after(current_date)) {
-            JOptionPane.showMessageDialog(this, "Ngày kết thúc không được lớn hơn ngày hiện tại", "Lỗi !", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ngày kết thúc không được lớn hơn ngày hiện tại", "Lỗi !",
+                    JOptionPane.ERROR_MESSAGE);
             end_date.getDateChooser().setCalendar(null);
             return false;
         }
         if (time_start != null && time_end != null && time_start.after(time_end)) {
-            JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn ngày bắt đầu", "Lỗi !", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn ngày bắt đầu", "Lỗi !",
+                    JOptionPane.ERROR_MESSAGE);
             end_date.getDateChooser().setCalendar(null);
             return false;
         }
@@ -196,12 +200,18 @@ public final class ThongKeTonKho extends JPanel implements ActionListener, KeyLi
 
     private void loadDataTalbe(HashMap<Integer, ArrayList<ThongKeTonKhoDTO>> list) {
         tblModel.setRowCount(0);
-        int size = list.size();
         int index = 1;
+
         for (int i : list.keySet()) {
             int[] soluong = thongkeBUS.getSoluong(list.get(i));
-            tblModel.addRow(new Object[]{
-                index + 1, i, list.get(i).get(0).getTensanpham(), soluong[0], soluong[1], soluong[2], soluong[3]
+            tblModel.addRow(new Object[] {
+                    index,
+                    i,
+                    list.get(i).get(0).getTensanpham(),
+                    soluong[0],
+                    soluong[1],
+                    soluong[2],
+                    soluong[3]
             });
             index++;
         }
@@ -227,12 +237,16 @@ public final class ThongKeTonKho extends JPanel implements ActionListener, KeyLi
 
     @Override
     public void keyTyped(KeyEvent e) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // throw new UnsupportedOperationException("Not supported yet."); // Generated
+        // from
+        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // throw new UnsupportedOperationException("Not supported yet."); // Generated
+        // from
+        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override

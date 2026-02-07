@@ -1,43 +1,53 @@
 package GUI.Panel;
 
-import GUI.Dialog.NhaCungCapDialog;
-import BUS.NhaCungCapBUS;
-import DAO.NhaCungCapDAO;
-import DTO.NhaCungCapDTO;
-import GUI.Component.IntegratedSearch;
-import GUI.Component.MainFunction;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import GUI.Component.PanelBorderRadius;
-import GUI.Main;
-import helper.JTableExporter;
-import helper.Validation;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.BoxLayout;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import BUS.NhaCungCapBUS;
+import DAO.NhaCungCapDAO;
+import DTO.NhaCungCapDTO;
+import GUI.Main;
+import GUI.Component.IntegratedSearch;
+import GUI.Component.MainFunction;
+import GUI.Component.PanelBorderRadius;
+import GUI.Dialog.NhaCungCapDialog;
+import helper.JTableExporter;
+import helper.Validation;
 
 public final class NhaCungCap extends JPanel implements ActionListener, ItemListener {
 
@@ -170,11 +180,11 @@ public final class NhaCungCap extends JPanel implements ActionListener, ItemList
         FileInputStream excelFIS = null;
         BufferedInputStream excelBIS = null;
         XSSFWorkbook excelJTableImport = null;
-        ArrayList<DTO.NhaCungCapDTO> listExcel = new ArrayList<DTO.NhaCungCapDTO>();
+        // ArrayList<DTO.NhaCungCapDTO> listExcel = new ArrayList<DTO.NhaCungCapDTO>();
         JFileChooser jf = new JFileChooser();
         int result = jf.showOpenDialog(null);
         jf.setDialogTitle("Open file");
-        Workbook workbook = null;
+        // Workbook workbook = null;
         int k = 0;
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
@@ -228,11 +238,13 @@ public final class NhaCungCap extends JPanel implements ActionListener, ItemList
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == mainFunction.btn.get("create")) {
-            NhaCungCapDialog dvtDialog = new NhaCungCapDialog(this, owner, "Thêm nhà cung cấp", true, "create");
+            new NhaCungCapDialog(this, owner, "Thêm nhà cung cấp", true, "create");
+
         } else if (e.getSource() == mainFunction.btn.get("update")) {
             int index = getRowSelected();
             if (index != -1) {
-                NhaCungCapDialog nccDialog = new NhaCungCapDialog(this, owner, "Chỉnh sửa nhà cung cấp", true, "update", listncc.get(index));
+               new NhaCungCapDialog(this, owner, "Chỉnh sửa nhà cung cấp", true, "update", listncc.get(index));
+
             }
         } else if (e.getSource() == mainFunction.btn.get("delete")) {
             int index = getRowSelected();
@@ -248,7 +260,8 @@ public final class NhaCungCap extends JPanel implements ActionListener, ItemList
         } else if (e.getSource() == mainFunction.btn.get("detail")) {
             int index = getRowSelected();
             if (index != -1) {
-                NhaCungCapDialog nccDialog = new NhaCungCapDialog(this, owner, "Chi tiết nhà cung cấp", true, "view", listncc.get(index));
+                new NhaCungCapDialog(this, owner, "Chi tiết nhà cung cấp", true, "view", listncc.get(index));
+
             }
         } else if (e.getSource() == search.btnReset) {
             search.txtSearchForm.setText("");

@@ -1,9 +1,5 @@
 package DTO;
 
-
-import DTO.ChiTietPhieuDTO;
-
-
 public class ChiTietPhieuNhapDTO extends ChiTietPhieuDTO{
     private int phuongthucnnhap;
 

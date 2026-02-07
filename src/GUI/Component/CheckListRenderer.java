@@ -5,12 +5,19 @@ import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-public class CheckListRenderer extends JCheckBox implements ListCellRenderer {
+public class CheckListRenderer extends JCheckBox
+        implements ListCellRenderer<CheckListItem> {
 
-    public Component getListCellRendererComponent(JList list, Object value,
-            int index, boolean isSelected, boolean hasFocus) {
+    @Override
+    public Component getListCellRendererComponent(
+            JList<? extends CheckListItem> list,
+            CheckListItem value,
+            int index,
+            boolean isSelected,
+            boolean hasFocus) {
+
         setEnabled(list.isEnabled());
-        setSelected(((CheckListItem) value).isSelected());
+        setSelected(value.isSelected());
         setFont(list.getFont());
         setBackground(list.getBackground());
         setForeground(list.getForeground());

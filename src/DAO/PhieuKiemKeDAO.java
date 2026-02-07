@@ -1,8 +1,5 @@
 package DAO;
 
-import DTO.PhieuKiemKeDTO;
-import DTO.PhieuKiemKeDTO;
-import config.JDBCUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +8,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import DTO.PhieuKiemKeDTO;
+import config.JDBCUtil;
 
 public class PhieuKiemKeDAO implements DAOinterface<PhieuKiemKeDTO>{
     

@@ -74,22 +74,18 @@ public class NhaCungCapDTO {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null || getClass() != obj.getClass())
             return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final NhaCungCapDTO other = (NhaCungCapDTO) obj;
-        return true;
+        NhaCungCapDTO other = (NhaCungCapDTO) obj;
+        return this.mancc == other.mancc;
     }
 
     @Override
     public String toString() {
-        return "NhaCungCap{" + "mancc=" + mancc + ", tenncc=" + tenncc + ", diachi=" + diachi + ", email=" + email + ", sdt=" + sdt + '}';
+        return "NhaCungCap{" + "mancc=" + mancc + ", tenncc=" + tenncc + ", diachi=" + diachi + ", email=" + email
+                + ", sdt=" + sdt + '}';
     }
-    
+
 }

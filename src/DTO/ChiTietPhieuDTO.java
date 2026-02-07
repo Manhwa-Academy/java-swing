@@ -1,9 +1,6 @@
 
 package DTO;
 
-import java.util.Objects;
-
-
 public class ChiTietPhieuDTO {
     private int maphieu;
     private int maphienbansp;

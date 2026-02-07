@@ -1,21 +1,29 @@
 package GUI.Dialog;
 
-import GUI.Component.HeaderTitle;
-import GUI.Component.InputForm;
-import GUI.Component.ButtonCustom;
-import DAO.KhachHangDAO;
-import DTO.KhachHangDTO;
-import GUI.Panel.KhachHang;
-import BUS.KhachHangBUS;
-import GUI.Component.NumericDocumentFilter;
-import helper.Validation;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.*;
+
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.PlainDocument;
-import org.apache.commons.codec.language.bm.Rule;
+
+import DAO.KhachHangDAO;
+import DTO.KhachHangDTO;
+import GUI.Component.ButtonCustom;
+import GUI.Component.HeaderTitle;
+import GUI.Component.InputForm;
+import GUI.Component.NumericDocumentFilter;
+import GUI.Panel.KhachHang;
+import helper.Validation;
 
 public class KhachHangDialog extends JDialog implements MouseListener {
 

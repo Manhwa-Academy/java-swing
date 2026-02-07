@@ -178,13 +178,14 @@ public class BlankPlotChart extends JComponent {
             }
             List<Path2D.Double> gra = initGra(blankPlotChatRender.getMaxLegend());
             for (int i = 0; i < labelCount; i++) {
-                blankPlotChatRender.renderSeries(this, g2, getRectangle(i, height, space, locationX, insets.top), i, gra);
+                blankPlotChatRender.renderSeries(this, g2, getRectangle(i, height, space, locationX, insets.top), i,
+                        gra);
             }
             blankPlotChatRender.renderGraphics(g2, gra);
         }
     }
 
-    private List initGra(int size) {
+    private List<Path2D.Double> initGra(int size) {
         List<Path2D.Double> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             list.add(new Path2D.Double());
@@ -203,7 +204,8 @@ public class BlankPlotChart extends JComponent {
             double space = width / labelCount;
             double locationX = insets.left + textWidth + spaceText;
             for (int i = 0; i < labelCount; i++) {
-                boolean stop = blankPlotChatRender.mouseMoving(this, evt, g2, getRectangle(i, height, space, locationX, insets.top), i);
+                boolean stop = blankPlotChatRender.mouseMoving(this, evt, g2,
+                        getRectangle(i, height, space, locationX, insets.top), i);
                 if (stop) {
                     break;
                 }

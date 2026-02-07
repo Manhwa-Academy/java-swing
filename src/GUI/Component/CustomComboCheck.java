@@ -1,43 +1,48 @@
-
 package GUI.Component;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Vector;
+
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
+public final class CustomComboCheck extends JComboBox<Object> {
 
-public final class CustomComboCheck extends JComboBox {
     private Object firstItem;
-    JTextArea text;
+    private JTextArea text;
 
-    public CustomComboCheck(Vector v, JTextArea text) {
+    public CustomComboCheck(Vector<Object> v, JTextArea text) {
         super(v);
         this.text = text;
+
         setRenderer(new ComboRenderer());
+
         addActionListener((ActionEvent event) -> {
             ourItemSelectedText();
         });
+
         if (!v.isEmpty()) {
-        firstItem = v.get(0);
+            firstItem = v.get(0);
         }
     }
-    
+
     private void ourItemSelectedText() {
         Object selected = getSelectedItem();
-        if (selected instanceof JCheckBox) {
-            JCheckBox chk = (JCheckBox) selected;
+
+        if (selected instanceof JCheckBox chk) {
+
             chk.setSelected(!chk.isSelected());
             repaint();
-            if (chk.isSelected() == false) {
+
+            if (!chk.isSelected()) {
                 chk.setSelected(true);
                 Object[] selections = chk.getSelectedObjects();
                 if (selections != null) {
                     for (Object lastItem : selections) {
-                        String txt = text.getText().replaceAll("(" + lastItem.toString() + ")\n", "");
-                        this.text.setText(txt);
+                        String txt = text.getText()
+                                .replaceAll("(" + lastItem.toString() + ")\n", "");
+                        text.setText(txt);
                     }
                 }
                 chk.setSelected(false);
@@ -46,15 +51,14 @@ public final class CustomComboCheck extends JComboBox {
             Object[] selections = chk.getSelectedObjects();
             if (selections != null) {
                 for (Object lastItem : selections) {
-                    this.text.append(lastItem.toString() + "\n");
+                    text.append(lastItem.toString() + "\n");
                 }
             }
         }
+
         if (!getSelectedItem().equals(firstItem)) {
             setSelectedItem(firstItem);
             repaint();
         }
-
     }
-
 }

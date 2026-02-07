@@ -21,8 +21,8 @@ public class KhachHangDTO {
         this.sdt = sdt;
         this.diachi = diachi;
     }
-    
-    public KhachHangDTO(int maKH, String hoten, String sdt, String diachi,Date ngaythamgia) {
+
+    public KhachHangDTO(int maKH, String hoten, String sdt, String diachi, Date ngaythamgia) {
         this.maKH = maKH;
         this.hoten = hoten;
         this.sdt = sdt;
@@ -82,17 +82,12 @@ public class KhachHangDTO {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null || getClass() != obj.getClass())
             return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final KhachHangDTO other = (KhachHangDTO) obj;
-        return true;
+        KhachHangDTO other = (KhachHangDTO) obj;
+        return this.maKH == other.maKH;
     }
 
     @Override

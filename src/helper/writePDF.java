@@ -64,10 +64,14 @@ public class writePDF {
 
     public writePDF() {
         try {
-            fontNormal10 = new Font(BaseFont.createFont("lib/TimesNewRoman/SVN-Times New Roman.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 12, Font.NORMAL);
-            fontBold25 = new Font(BaseFont.createFont("lib/TimesNewRoman/SVN-Times New Roman Bold.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 25, Font.NORMAL);
-            fontBold15 = new Font(BaseFont.createFont("lib/TimesNewRoman/SVN-Times New Roman Bold.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 15, Font.NORMAL);
-            fontBoldItalic15 = new Font(BaseFont.createFont("lib/TimesNewRoman/SVN-Times New Roman Bold Italic.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 15, Font.NORMAL);
+            fontNormal10 = new Font(BaseFont.createFont("lib/TimesNewRoman/SVN-Times New Roman.ttf",
+                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 12, Font.NORMAL);
+            fontBold25 = new Font(BaseFont.createFont("lib/TimesNewRoman/SVN-Times New Roman Bold.ttf",
+                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 25, Font.NORMAL);
+            fontBold15 = new Font(BaseFont.createFont("lib/TimesNewRoman/SVN-Times New Roman Bold.ttf",
+                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 15, Font.NORMAL);
+            fontBoldItalic15 = new Font(BaseFont.createFont("lib/TimesNewRoman/SVN-Times New Roman Bold Italic.ttf",
+                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 15, Font.NORMAL);
         } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException ex) {
@@ -80,12 +84,12 @@ public class writePDF {
             document.close();
             document = new Document();
             file = new FileOutputStream(url);
-            PdfWriter writer = PdfWriter.getInstance(document, file);
+            PdfWriter.getInstance(document, file); // ✅ không cần biến
             document.open();
         } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Khong tim thay duong dan file " + url);
+            JOptionPane.showMessageDialog(null, "Không tìm thấy đường dẫn file " + url);
         } catch (DocumentException ex) {
-            JOptionPane.showMessageDialog(null, "Khong goi duoc document !");
+            JOptionPane.showMessageDialog(null, "Không khởi tạo được document!");
         }
     }
 
@@ -182,7 +186,8 @@ public class writePDF {
             paragraph3.add(new Chunk("-"));
             paragraph3.add(new Chunk(createWhiteSpace(5)));
             paragraph3.add(new Chunk("Mã nhân viên: " + pn.getManguoitao(), fontNormal10));
-            Paragraph paragraph4 = new Paragraph("Thời gian nhập: " + formatDate.format(pn.getThoigiantao()), fontNormal10);
+            Paragraph paragraph4 = new Paragraph("Thời gian nhập: " + formatDate.format(pn.getThoigiantao()),
+                    fontNormal10);
             document.add(paragraph1);
             document.add(paragraph2);
             document.add(paragraph3);
@@ -191,7 +196,7 @@ public class writePDF {
             // Thêm table 5 cột vào file PDF
             PdfPTable table = new PdfPTable(5);
             table.setWidthPercentage(100);
-            table.setWidths(new float[]{30f, 35f, 20f, 15f, 20f});
+            table.setWidths(new float[] { 30f, 35f, 20f, 15f, 20f });
             PdfPCell cell;
 
             table.addCell(new PdfPCell(new Phrase("Tên sản phẩm", fontBold15)));
@@ -204,22 +209,25 @@ public class writePDF {
                 table.addCell(cell);
             }
 
-            //Truyen thong tin tung chi tiet vao table
+            // Truyen thong tin tung chi tiet vao table
             for (ChiTietPhieuDTO ctp : ChiTietPhieuNhapDAO.getInstance().selectAll(maphieu + "")) {
                 SanPhamDTO sp = new SanPhamDAO().selectByPhienBan(ctp.getMaphienbansp() + "");
                 table.addCell(new PdfPCell(new Phrase(sp.getTensp(), fontNormal10)));
                 PhienBanSanPhamDTO pbsp = new PhienBanSanPhamDAO().selectById(ctp.getMaphienbansp());
                 table.addCell(new PdfPCell(new Phrase(romBus.getKichThuocById(pbsp.getRom()) + "GB - "
-                        + ramBus.getKichThuocById(pbsp.getRam()) + "GB - " + mausacBus.getTenMau(pbsp.getMausac()), fontNormal10)));
+                        + ramBus.getKichThuocById(pbsp.getRam()) + "GB - " + mausacBus.getTenMau(pbsp.getMausac()),
+                        fontNormal10)));
                 table.addCell(new PdfPCell(new Phrase(formatter.format(ctp.getDongia()) + "đ", fontNormal10)));
                 table.addCell(new PdfPCell(new Phrase(String.valueOf(ctp.getSoluong()), fontNormal10)));
-                table.addCell(new PdfPCell(new Phrase(formatter.format(ctp.getSoluong() * ctp.getDongia()) + "đ", fontNormal10)));
+                table.addCell(new PdfPCell(
+                        new Phrase(formatter.format(ctp.getSoluong() * ctp.getDongia()) + "đ", fontNormal10)));
             }
 
             document.add(table);
             document.add(Chunk.NEWLINE);
 
-            Paragraph paraTongThanhToan = new Paragraph(new Phrase("Tổng thành tiền: " + formatter.format(pn.getTongTien()) + "đ", fontBold15));
+            Paragraph paraTongThanhToan = new Paragraph(
+                    new Phrase("Tổng thành tiền: " + formatter.format(pn.getTongTien()) + "đ", fontBold15));
             paraTongThanhToan.setIndentationLeft(300);
 
             document.add(paraTongThanhToan);
@@ -298,7 +306,8 @@ public class writePDF {
             paragraph3.add(new Chunk("-"));
             paragraph3.add(new Chunk(createWhiteSpace(5)));
             paragraph3.add(new Chunk("Mã nhân viên: " + px.getManguoitao(), fontNormal10));
-            Paragraph paragraph4 = new Paragraph("Thời gian nhập: " + formatDate.format(px.getThoigiantao()), fontNormal10);
+            Paragraph paragraph4 = new Paragraph("Thời gian nhập: " + formatDate.format(px.getThoigiantao()),
+                    fontNormal10);
             document.add(paragraph1);
             document.add(paragraph2);
             document.add(paragraph3);
@@ -307,7 +316,7 @@ public class writePDF {
             // Thêm table 5 cột vào file PDF
             PdfPTable table = new PdfPTable(5);
             table.setWidthPercentage(100);
-            table.setWidths(new float[]{30f, 35f, 20f, 15f, 20f});
+            table.setWidths(new float[] { 30f, 35f, 20f, 15f, 20f });
             PdfPCell cell;
 
             table.addCell(new PdfPCell(new Phrase("Tên sản phẩm", fontBold15)));
@@ -320,22 +329,25 @@ public class writePDF {
                 table.addCell(cell);
             }
 
-            //Truyen thong tin tung chi tiet vao table
+            // Truyen thong tin tung chi tiet vao table
             for (ChiTietPhieuDTO ctp : ChiTietPhieuXuatDAO.getInstance().selectAll(maphieu + "")) {
                 SanPhamDTO sp = new SanPhamDAO().selectByPhienBan(ctp.getMaphienbansp() + "");
                 table.addCell(new PdfPCell(new Phrase(sp.getTensp(), fontNormal10)));
                 PhienBanSanPhamDTO pbsp = new PhienBanSanPhamDAO().selectById(ctp.getMaphienbansp());
                 table.addCell(new PdfPCell(new Phrase(romBus.getKichThuocById(pbsp.getRom()) + "GB - "
-                        + ramBus.getKichThuocById(pbsp.getRam()) + "GB - " + mausacBus.getTenMau(pbsp.getMausac()), fontNormal10)));
+                        + ramBus.getKichThuocById(pbsp.getRam()) + "GB - " + mausacBus.getTenMau(pbsp.getMausac()),
+                        fontNormal10)));
                 table.addCell(new PdfPCell(new Phrase(formatter.format(ctp.getDongia()) + "đ", fontNormal10)));
                 table.addCell(new PdfPCell(new Phrase(String.valueOf(ctp.getSoluong()), fontNormal10)));
-                table.addCell(new PdfPCell(new Phrase(formatter.format(ctp.getSoluong() * ctp.getDongia()) + "đ", fontNormal10)));
+                table.addCell(new PdfPCell(
+                        new Phrase(formatter.format(ctp.getSoluong() * ctp.getDongia()) + "đ", fontNormal10)));
             }
 
             document.add(table);
             document.add(Chunk.NEWLINE);
 
-            Paragraph paraTongThanhToan = new Paragraph(new Phrase("Tổng thành tiền: " + formatter.format(px.getTongTien()) + "đ", fontBold15));
+            Paragraph paraTongThanhToan = new Paragraph(
+                    new Phrase("Tổng thành tiền: " + formatter.format(px.getTongTien()) + "đ", fontBold15));
             paraTongThanhToan.setIndentationLeft(300);
 
             document.add(paraTongThanhToan);

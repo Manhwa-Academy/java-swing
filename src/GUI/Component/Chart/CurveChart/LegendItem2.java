@@ -10,7 +10,7 @@ public class LegendItem2 extends javax.swing.JPanel {
         lbName.setText(data.getName());
     }
 
-    @SuppressWarnings("unchecked")
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 

@@ -13,7 +13,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.EventListenerList;
 import javax.swing.plaf.ComponentUI;
 
-
 public final class InputForm extends JPanel {
 
     private JLabel lblTitle;
@@ -49,21 +48,20 @@ public final class InputForm extends JPanel {
     public InputForm(String title, int w, int h) {
         this.setLayout(new GridLayout(2, 1));
         this.setBackground(Color.white);
-//        this.setBorder(new EmptyBorder(0, 10, 5, 10));
+        // this.setBorder(new EmptyBorder(0, 10, 5, 10));
         this.setPreferredSize(new Dimension(w, h));
         lblTitle = new JLabel(title);
         txtForm = new JTextField();
         this.add(lblTitle);
         this.add(txtForm);
     }
-    
+
     public void setTitle(String title) {
         this.lblTitle.setText(title);
     }
 
-    
     public String getPass() {
-        return txtPass.getText();
+        return new String(txtPass.getPassword());
     }
 
     public JLabel getLblTitle() {

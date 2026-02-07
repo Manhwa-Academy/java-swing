@@ -1,17 +1,9 @@
 package GUI.Panel;
 
-import BUS.NhomQuyenBUS;
-import DTO.NhomQuyenDTO;
-import DTO.SanPhamDTO;
-import GUI.Dialog.PhanQuyenDialog;
-import GUI.Component.IntegratedSearch;
-import GUI.Component.MainFunction;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import GUI.Component.PanelBorderRadius;
-import GUI.Main;
-import helper.JTableExporter;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -19,9 +11,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+
+import BUS.NhomQuyenBUS;
+import DTO.NhomQuyenDTO;
+import GUI.Main;
+import GUI.Component.IntegratedSearch;
+import GUI.Component.MainFunction;
+import GUI.Component.PanelBorderRadius;
+import GUI.Dialog.PhanQuyenDialog;
+import helper.JTableExporter;
 
 public class PhanQuyen extends JPanel implements ActionListener {
 
@@ -119,16 +130,18 @@ public class PhanQuyen extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == mainFunction.btn.get("create")) {
-            PhanQuyenDialog pq = new PhanQuyenDialog(nhomquyenBUS,this, owner, "Thêm nhóm quyền", true, "create");
+           new PhanQuyenDialog(nhomquyenBUS, this, owner,
+        "Thêm nhóm quyền", true, "create");
+
         } else if (e.getSource() == mainFunction.btn.get("update")) {
             int index = this.getRowSelected();
             if (index >= 0) {
-                PhanQuyenDialog nccDialog = new PhanQuyenDialog(nhomquyenBUS,this, owner, "Chỉnh sửa nhóm quyền", true, "update", listnhomquyen.get(index));
+                new PhanQuyenDialog(nhomquyenBUS,this, owner, "Chỉnh sửa nhóm quyền", true, "update", listnhomquyen.get(index));
             }
         } else if (e.getSource() == mainFunction.btn.get("detail")) {
             int index = this.getRowSelected();
             if (index >= 0) {
-                PhanQuyenDialog nccDialog = new PhanQuyenDialog(nhomquyenBUS,this, owner, "Chi tiết nhóm quyền", true, "view", listnhomquyen.get(index));
+               new PhanQuyenDialog(nhomquyenBUS,this, owner, "Chi tiết nhóm quyền", true, "view", listnhomquyen.get(index));
             }
         } else if (e.getSource() == mainFunction.btn.get("delete")) {
             int index = this.getRowSelected();

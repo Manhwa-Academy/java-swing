@@ -42,7 +42,6 @@ public class KhuVucKhoDTO {
         this.ghichu = ghichu;
     }
 
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -54,22 +53,17 @@ public class KhuVucKhoDTO {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null || getClass() != obj.getClass())
             return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final KhuVucKhoDTO other = (KhuVucKhoDTO) obj;
-        return true;
+        KhuVucKhoDTO other = (KhuVucKhoDTO) obj;
+        return this.makhuvuc == other.makhuvuc;
     }
 
     @Override
     public String toString() {
         return "KhuVucKho{" + "makhuvuc=" + makhuvuc + ", tenkhuvuc=" + tenkhuvuc + ", ghichu=" + ghichu + '}';
     }
-    
+
 }

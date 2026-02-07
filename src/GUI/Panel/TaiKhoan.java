@@ -1,25 +1,10 @@
 package GUI.Panel;
 
-import BUS.NhaCungCapBUS;
-import BUS.NhanVienBUS;
-import BUS.NhomQuyenBUS;
-import BUS.TaiKhoanBUS;
-import DAO.TaiKhoanDAO;
-import DTO.NhanVienDTO;
-import DTO.NhomQuyenDTO;
-import DTO.TaiKhoanDTO;
-import GUI.Main;
-import GUI.Component.IntegratedSearch;
-import GUI.Component.MainFunction;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import GUI.Component.PanelBorderRadius;
-import GUI.Dialog.ListNhanVien;
-import GUI.Dialog.TaiKhoanDialog;
-import helper.BCrypt;
-import helper.JTableExporter;
-import helper.Validation;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -34,13 +19,40 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.BoxLayout;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Workbook;
+
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import BUS.NhanVienBUS;
+import BUS.NhomQuyenBUS;
+import BUS.TaiKhoanBUS;
+import DAO.TaiKhoanDAO;
+import DTO.NhanVienDTO;
+import DTO.NhomQuyenDTO;
+import DTO.TaiKhoanDTO;
+import GUI.Main;
+import GUI.Component.IntegratedSearch;
+import GUI.Component.MainFunction;
+import GUI.Component.PanelBorderRadius;
+import GUI.Dialog.ListNhanVien;
+import GUI.Dialog.TaiKhoanDialog;
+import helper.BCrypt;
+import helper.JTableExporter;
+import helper.Validation;
 
 public class TaiKhoan extends JPanel implements ActionListener, ItemListener {
 
@@ -187,11 +199,11 @@ public class TaiKhoan extends JPanel implements ActionListener, ItemListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == mainFunction.btn.get("create")) {
-            ListNhanVien listNV = new ListNhanVien(this, owner, "Chọn tài khoản", true);
+           new ListNhanVien(this, owner, "Chọn tài khoản", true);
         } else if (e.getSource() == mainFunction.btn.get("update")) {
             int index = getRowSelected();
             if (index != -1) {
-                TaiKhoanDialog add = new TaiKhoanDialog(this, owner, "Cập nhật tài khoản", true, "update", listTk.get(index));
+                new TaiKhoanDialog(this, owner, "Cập nhật tài khoản", true, "update", listTk.get(index));
             }
         } else if (e.getSource() == mainFunction.btn.get("delete")) {
             int index = getRowSelected();
@@ -207,7 +219,7 @@ public class TaiKhoan extends JPanel implements ActionListener, ItemListener {
         } else if (e.getSource() == mainFunction.btn.get("detail")) {
             int index = getRowSelected();
             if (index != -1) {
-                TaiKhoanDialog add = new TaiKhoanDialog(this, owner, "Thêm tài khoản", true, "view", listTk.get(index));
+                new TaiKhoanDialog(this, owner, "Thêm tài khoản", true, "view", listTk.get(index));
             }
         } else if (e.getSource() == mainFunction.btn.get("export")) {
             try {
@@ -228,7 +240,7 @@ public class TaiKhoan extends JPanel implements ActionListener, ItemListener {
         JFileChooser jf = new JFileChooser();
         int result = jf.showOpenDialog(null);
         jf.setDialogTitle("Open file");
-        Workbook workbook = null;
+        // Workbook workbook = null;
         int k = 0;
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
@@ -239,7 +251,7 @@ public class TaiKhoan extends JPanel implements ActionListener, ItemListener {
                 XSSFSheet excelSheet = excelJTableImport.getSheetAt(0);
                 for (int row = 1; row <= excelSheet.getLastRowNum(); row++) {
                     XSSFRow excelRow = excelSheet.getRow(row);
-                    Cell cell0=excelRow.getCell(0);
+                    // Cell cell0=excelRow.getCell(0);
                     int manv = (int)excelRow.getCell(0).getNumericCellValue();
                     String tendangnhap = excelRow.getCell(1).getStringCellValue();
                     String matkhau = excelRow.getCell(2).getStringCellValue();

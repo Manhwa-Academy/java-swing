@@ -1,14 +1,5 @@
 package GUI.Dialog.ThuocTinhSanPham;
 
-import BUS.NhomQuyenBUS;
-import BUS.ThuongHieuBUS;
-import DAO.ThuongHieuDAO;
-import DTO.ThuocTinhSanPham.ThuongHieuDTO;
-import GUI.Component.ButtonCustom;
-import GUI.Component.HeaderTitle;
-import GUI.Component.InputForm;
-import GUI.Panel.QuanLyThuocTinhSP;
-import helper.Validation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,6 +20,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+
+import BUS.NhomQuyenBUS;
+import BUS.ThuongHieuBUS;
+import DTO.ThuocTinhSanPham.ThuongHieuDTO;
+import GUI.Component.ButtonCustom;
+import GUI.Component.HeaderTitle;
+import GUI.Component.InputForm;
+import GUI.Panel.QuanLyThuocTinhSP;
+import helper.Validation;
 
 
 public final class ThuongHieuDialog extends JDialog implements MouseListener {
@@ -137,7 +138,7 @@ public final class ThuongHieuDialog extends JDialog implements MouseListener {
             } else {
                 String tenthuonghieu = ms.getText();
                 if (thBUS.checkDup(tenthuonghieu)) {
-                    int id = ThuongHieuDAO.getInstance().getAutoIncrement();
+                    // int id = ThuongHieuDAO.getInstance().getAutoIncrement();
                     thBUS.add(tenthuonghieu);
                     loadDataTable(list);
                     ms.setText("");

@@ -12,7 +12,7 @@ public class TableSorter {
         String s2 = (String) o2;
         return s1.compareTo(s2);
     };
-    
+
     public static final Comparator<Object> DATE_COMPARATOR = (Object o1, Object o2) -> {
         Date s1 = (Date) o1;
         Date s2 = (Date) o2;
@@ -52,14 +52,16 @@ public class TableSorter {
         return Long.compare(n1, n2);
     };
 
-    public static void configureTableColumnSorter(JTable table, int columnIndex, Comparator<Object> comparator) {
-        DefaultTableModel tblModel = (DefaultTableModel) table.getModel();
-        TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) table.getRowSorter();
-        if (sorter == null) {
-            sorter = new TableRowSorter<>(tblModel);
-            table.setRowSorter(sorter);
-        }
+    public static void configureTableColumnSorter(
+            JTable table,
+            int columnIndex,
+            Comparator<Object> comparator) {
+
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+
+        table.setRowSorter(sorter);
         sorter.setComparator(columnIndex, comparator);
     }
-}
 
+}

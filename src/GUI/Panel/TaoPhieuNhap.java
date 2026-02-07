@@ -1,32 +1,12 @@
 package GUI.Panel;
 
-import BUS.PhienBanSanPhamBUS;
-import BUS.DungLuongRamBUS;
-import BUS.DungLuongRomBUS;
-import BUS.MauSacBUS;
-import BUS.NhaCungCapBUS;
-import BUS.PhieuNhapBUS;
-import BUS.SanPhamBUS;
-import DTO.PhienBanSanPhamDTO;
-import DTO.ChiTietPhieuNhapDTO;
-import DTO.ChiTietSanPhamDTO;
-import DTO.NhanVienDTO;
-import DTO.PhieuNhapDTO;
-import DTO.SanPhamDTO;
-import GUI.Component.ButtonCustom;
-import GUI.Component.InputForm;
-import GUI.Component.NumericDocumentFilter;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import GUI.Component.PanelBorderRadius;
-import GUI.Component.SelectForm;
-import GUI.Dialog.QRCode_Dialog;
-import GUI.Main;
-import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
-import helper.Formater;
-import helper.Validation;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -42,14 +22,54 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.PlainDocument;
-import org.apache.poi.ss.usermodel.Workbook;
+
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+
+import BUS.DungLuongRamBUS;
+import BUS.DungLuongRomBUS;
+import BUS.MauSacBUS;
+import BUS.NhaCungCapBUS;
+import BUS.PhienBanSanPhamBUS;
+import BUS.PhieuNhapBUS;
+import BUS.SanPhamBUS;
+import DTO.ChiTietPhieuNhapDTO;
+import DTO.ChiTietSanPhamDTO;
+import DTO.NhanVienDTO;
+import DTO.PhienBanSanPhamDTO;
+import DTO.PhieuNhapDTO;
+import DTO.SanPhamDTO;
+import GUI.Main;
+import GUI.Component.ButtonCustom;
+import GUI.Component.InputForm;
+import GUI.Component.NumericDocumentFilter;
+import GUI.Component.PanelBorderRadius;
+import GUI.Component.SelectForm;
+import GUI.Dialog.QRCode_Dialog;
+import helper.Formater;
+import helper.Validation;
 
 public final class TaoPhieuNhap extends JPanel implements ItemListener, ActionListener {
 
@@ -429,7 +449,7 @@ public final class TaoPhieuNhap extends JPanel implements ItemListener, ActionLi
 
     public ChiTietPhieuNhapDTO getInfoChiTietPhieu() {
         
-        int masp = Integer.parseInt(txtMaSp.getText());
+        // int masp = Integer.parseInt(txtMaSp.getText());
         int maphienbansp = ch.get(cbxCauhinh.cbb.getSelectedIndex()).getMaphienbansp();
         int gianhap = Integer.parseInt(txtDongia.getText());
         int phuongthucnhap = cbxPtNhap.getSelectedIndex();
@@ -654,7 +674,7 @@ public final class TaoPhieuNhap extends JPanel implements ItemListener, ActionLi
             if (ch.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm để quét mã!");
             } else {
-                QRCode_Dialog qr = new QRCode_Dialog(owner, "Scan", true, textAreaImei);
+               new QRCode_Dialog(owner, "Scan", true, textAreaImei);
             }
         } else if (source == importImei) {
             getImeifromFile();
@@ -696,7 +716,7 @@ public final class TaoPhieuNhap extends JPanel implements ItemListener, ActionLi
         JFileChooser jf = new JFileChooser();
         int result = jf.showOpenDialog(null);
         jf.setDialogTitle("Open file");
-        Workbook workbook = null;
+        // Workbook workbook = null;
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
                 excelFile = jf.getSelectedFile();

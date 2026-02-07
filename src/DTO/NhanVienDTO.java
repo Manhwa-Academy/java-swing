@@ -28,7 +28,8 @@ public class NhanVienDTO {
         this.email = email;
     }
 
-    public NhanVienDTO(String hoten, int gioitinh, Date ngaysinh, String sdt, int trangthai) {
+    public NhanVienDTO(String hoten, int gioitinh, Date ngaysinh,
+            String sdt, int trangthai, String email) {
         this.hoten = hoten;
         this.gioitinh = gioitinh;
         this.ngaysinh = ngaysinh;
@@ -113,17 +114,12 @@ public class NhanVienDTO {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null || getClass() != obj.getClass())
             return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final NhanVienDTO other = (NhanVienDTO) obj;
-        return true;
+        NhanVienDTO other = (NhanVienDTO) obj;
+        return this.manv == other.manv;
     }
 
     @Override

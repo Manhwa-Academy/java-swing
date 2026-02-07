@@ -1,22 +1,12 @@
 package GUI.Panel.ThongKe;
 
-import BUS.ThongKeBUS;
-import DAO.KhachHangDAO;
-import DAO.NhanVienDAO;
-import DAO.SanPhamDAO;
-import DTO.ThongKe.ThongKeDoanhThuDTO;
-import DTO.ThongKe.ThongKeTungNgayTrongThangDTO;
-import GUI.Component.TableSorter;
-import GUI.Component.itemTaskbar;
-import GUI.Component.Chart.CurveChart.CurveChart;
-import GUI.Component.Chart.CurveChart.ModelChart2;
-import helper.Formater;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,6 +14,17 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import BUS.ThongKeBUS;
+import DAO.KhachHangDAO;
+import DAO.NhanVienDAO;
+import DAO.SanPhamDAO;
+import DTO.ThongKe.ThongKeTungNgayTrongThangDTO;
+import GUI.Component.TableSorter;
+import GUI.Component.itemTaskbar;
+import GUI.Component.Chart.CurveChart.CurveChart;
+import GUI.Component.Chart.CurveChart.ModelChart2;
+import helper.Formater;
 
 
 public class ThongKeTongQuan extends JPanel {

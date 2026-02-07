@@ -1,15 +1,16 @@
 package GUI.Component;
 
-import com.toedter.calendar.JDateChooser;
-import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 
 public class InputDate extends JPanel {
 
@@ -17,7 +18,7 @@ public class InputDate extends JPanel {
     private JDateChooser dateChooser;
 
     // yyyy mới là năm chuẩn
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    // private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     public InputDate(String title) {
         initUI(title, -1, -1);

@@ -1,13 +1,31 @@
 package GUI.Dialog;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 import BUS.ChiTietSanPhamBUS;
-import BUS.DungLuongRamBUS;
-import BUS.DungLuongRomBUS;
-import BUS.MauSacBUS;
 import BUS.PhienBanSanPhamBUS;
 import BUS.PhieuNhapBUS;
 import BUS.PhieuXuatBUS;
-import BUS.SanPhamBUS;
 import DAO.DungLuongRamDAO;
 import DAO.DungLuongRomDAO;
 import DAO.KhachHangDAO;
@@ -25,26 +43,6 @@ import GUI.Component.HeaderTitle;
 import GUI.Component.InputForm;
 import helper.Formater;
 import helper.writePDF;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 public final class ChiTietPhieuDialog extends JDialog implements ActionListener {
 

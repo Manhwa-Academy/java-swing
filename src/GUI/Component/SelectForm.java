@@ -1,4 +1,3 @@
-
 package GUI.Component;
 
 import java.awt.Color;
@@ -9,44 +8,44 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+public class SelectForm extends JPanel {
 
-public class SelectForm extends JPanel{
     private JLabel lblTitle;
-    public JComboBox cbb;
-    
+    public JComboBox<String> cbb;
+
     public SelectForm(String title, String[] obj) {
         this.setLayout(new GridLayout(2, 1));
         this.setBackground(Color.white);
         this.setBorder(new EmptyBorder(0, 10, 5, 10));
-        
+
         lblTitle = new JLabel(title);
-        cbb = new JComboBox(obj);
-        
+        cbb = new JComboBox<>(obj);   // ✅ generic
+
         this.add(lblTitle);
         this.add(cbb);
     }
-    
+
     public void setArr(String[] obj) {
-        this.cbb.setModel(new DefaultComboBoxModel(obj));
+        this.cbb.setModel(new DefaultComboBoxModel<>(obj)); // ✅ generic
     }
-    
+
     public String getValue() {
         return (String) cbb.getSelectedItem();
     }
-    
+
     public Object getSelectedItem() {
         return cbb.getSelectedItem();
     }
-    
+
     public int getSelectedIndex() {
         return cbb.getSelectedIndex();
     }
-    
+
     public void setSelectedIndex(int i) {
         cbb.setSelectedIndex(i);
     }
-    
-    public void setSelectedItem(Object a) {
+
+    public void setSelectedItem(String a) {
         cbb.setSelectedItem(a);
     }
 
@@ -58,16 +57,15 @@ public class SelectForm extends JPanel{
         this.lblTitle = lblTitle;
     }
 
-    public JComboBox getCbb() {
+    public JComboBox<String> getCbb() {
         return cbb;
     }
 
-    public void setCbb(JComboBox cbb) {
+    public void setCbb(JComboBox<String> cbb) {
         this.cbb = cbb;
     }
-    
-    public void setDisable(){
+
+    public void setDisable() {
         cbb.setEnabled(false);
     }
-    
 }

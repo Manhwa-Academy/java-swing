@@ -2,7 +2,6 @@
 package DTO;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 
 
 public class PhieuXuatDTO extends PhieuDTO{

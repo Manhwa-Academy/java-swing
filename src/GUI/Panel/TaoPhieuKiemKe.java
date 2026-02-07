@@ -1,32 +1,9 @@
 package GUI.Panel;
 
-import BUS.ChiTietSanPhamBUS;
-import BUS.PhienBanSanPhamBUS;
-import BUS.DungLuongRamBUS;
-import BUS.DungLuongRomBUS;
-import BUS.MauSacBUS;
-import BUS.NhaCungCapBUS;
-import BUS.PhieuKiemKeBUS;
-import BUS.PhieuNhapBUS;
-import BUS.SanPhamBUS;
-import DTO.ChiTietKiemKeDTO;
-import DTO.ChiTietKiemKeSanPhamDTO;
-import DTO.PhienBanSanPhamDTO;
-import DTO.ChiTietSanPhamDTO;
-import DTO.NhanVienDTO;
-import DTO.PhieuKiemKeDTO;
-import DTO.SanPhamDTO;
-import GUI.Component.ButtonCustom;
-import GUI.Component.InputForm;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import GUI.Component.PanelBorderRadius;
-import GUI.Component.SelectForm;
-import GUI.Dialog.QRCode_Dialog;
-import GUI.Dialog.SelectImei;
-import GUI.Main;
-import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -35,16 +12,49 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+
+import BUS.ChiTietSanPhamBUS;
+import BUS.DungLuongRamBUS;
+import BUS.DungLuongRomBUS;
+import BUS.MauSacBUS;
+import BUS.NhaCungCapBUS;
+import BUS.PhienBanSanPhamBUS;
+import BUS.PhieuKiemKeBUS;
+import BUS.PhieuNhapBUS;
+import BUS.SanPhamBUS;
+import DTO.ChiTietKiemKeDTO;
+import DTO.ChiTietKiemKeSanPhamDTO;
+import DTO.NhanVienDTO;
+import DTO.PhienBanSanPhamDTO;
+import DTO.SanPhamDTO;
+import GUI.Main;
+import GUI.Component.ButtonCustom;
+import GUI.Component.InputForm;
+import GUI.Component.PanelBorderRadius;
+import GUI.Component.SelectForm;
+
 public final class TaoPhieuKiemKe extends JPanel implements ItemListener, ActionListener {
 
     PanelBorderRadius right, left;
-    JPanel pnlBorder1, pnlBorder2, pnlBorder3, pnlBorder4, contentCenter, left_top, main, content_right_bottom, content_btn;
+    JPanel pnlBorder1, pnlBorder2, pnlBorder3, pnlBorder4, contentCenter, left_top, main, content_right_bottom,
+            content_btn;
     JTable tablePhieuKiemKe, tableSanPham;
     JScrollPane scrollTablePhieuKK, scrollTableSanPham;
     DefaultTableModel tblModel, tblModelSP;
@@ -76,8 +86,8 @@ public final class TaoPhieuKiemKe extends JPanel implements ItemListener, Action
     HashMap<ChiTietKiemKeDTO, ArrayList<ChiTietKiemKeSanPhamDTO>> chiTietPhieu;
     int maphieukiemke;
     int rowPhieuSelect = -1;
-    private ButtonCustom scanImei;
-    private ButtonCustom btnChonImei;
+    // private ButtonCustom scanImei;
+    // private ButtonCustom btnChonImei;
     private JTextArea jTextAreaGhiChu;
 
     public TaoPhieuKiemKe(NhanVienDTO nv, String type, Main m) {
@@ -117,7 +127,8 @@ public final class TaoPhieuKiemKe extends JPanel implements ItemListener, Action
         tablePhieuKiemKe = new JTable();
         scrollTablePhieuKK = new JScrollPane();
         tblModel = new DefaultTableModel();
-        String[] header = new String[]{"STT", "Mã SP", "Tên sản phẩm", "RAM", "ROM", "Màu sắc", "Số lượng", "Chênh lệch"};
+        String[] header = new String[] { "STT", "Mã SP", "Tên sản phẩm", "RAM", "ROM", "Màu sắc", "Số lượng",
+                "Chênh lệch" };
         tblModel.setColumnIdentifiers(header);
         tablePhieuKiemKe.setModel(tblModel);
         tablePhieuKiemKe.setFocusable(false);
@@ -137,7 +148,7 @@ public final class TaoPhieuKiemKe extends JPanel implements ItemListener, Action
         tablePhieuKiemKe.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                int index = tablePhieuKiemKe.getSelectedRow();
+                // int index = tablePhieuKiemKe.getSelectedRow();
             }
         });
 
@@ -145,7 +156,7 @@ public final class TaoPhieuKiemKe extends JPanel implements ItemListener, Action
         tableSanPham = new JTable();
         scrollTableSanPham = new JScrollPane();
         tblModelSP = new DefaultTableModel();
-        String[] headerSP = new String[]{"Mã SP", "Tên sản phẩm"};
+        String[] headerSP = new String[] { "Mã SP", "Tên sản phẩm" };
         tblModelSP.setColumnIdentifiers(headerSP);
         tableSanPham.setModel(tblModelSP);
         scrollTableSanPham.setViewportView(tableSanPham);
@@ -160,6 +171,12 @@ public final class TaoPhieuKiemKe extends JPanel implements ItemListener, Action
                 int index = tableSanPham.getSelectedRow();
                 if (index >= 0) {
                     SanPhamDTO sp = spBUS.getByIndex(index);
+                    txtMaSp.setText(sp.getMasp() + "");
+                    txtTenSp.setText(sp.getTensp());
+                    cbxCauhinh.cbb.setModel(
+                            new javax.swing.DefaultComboBoxModel<>(
+                                    getCauHinhPhienBan(sp.getMasp())));
+
                 }
             }
         });
@@ -208,7 +225,7 @@ public final class TaoPhieuKiemKe extends JPanel implements ItemListener, Action
         txtTenSp = new InputForm("Tên sản phẩm");
         txtTenSp.setEditable(false);
 
-        String[] arrCauhinh = {"Chọn sản phẩm"};
+        String[] arrCauhinh = { "Chọn sản phẩm" };
         JPanel content_right_top_cbx = new JPanel(new BorderLayout());
         content_right_top_cbx.setPreferredSize(new Dimension(100, 180));
         cbxCauhinh = new SelectForm("Cấu hình", arrCauhinh);
@@ -279,7 +296,7 @@ public final class TaoPhieuKiemKe extends JPanel implements ItemListener, Action
         right.setBorder(new EmptyBorder(5, 5, 5, 5));
         right.setLayout(new BorderLayout());
 
-        JPanel right_top, right_center, right_bottom, pn_tongtien;
+        JPanel right_top, right_center, right_bottom;
         right_top = new JPanel(new GridLayout(4, 1, 0, 0));
         right_top.setPreferredSize(new Dimension(300, 360));
         right_top.setOpaque(false);
@@ -289,7 +306,7 @@ public final class TaoPhieuKiemKe extends JPanel implements ItemListener, Action
         txtNhanVien = new InputForm("Nhân viên");
         txtNhanVien.setText(nhanVien.getHoten());
         txtNhanVien.setEditable(false);
-        String[] arrTrangThai = {"Đã nhập", "Huỷ"};
+        String[] arrTrangThai = { "Đã nhập", "Huỷ" };
         cbxTrangThai = new SelectForm("Trạng thái", arrTrangThai);
         right_top.add(txtMaphieu);
         right_top.add(txtNhanVien);
@@ -323,13 +340,11 @@ public final class TaoPhieuKiemKe extends JPanel implements ItemListener, Action
     public void loadDsSanPham() {
         tblModelSP.setRowCount(0);
         for (SanPhamDTO sanPhamDTO : spBUS.getAll()) {
-            tblModelSP.addRow(new Object[]{
-                sanPhamDTO.getMasp(), sanPhamDTO.getTensp()
+            tblModelSP.addRow(new Object[] {
+                    sanPhamDTO.getMasp(), sanPhamDTO.getTensp()
             });
         }
     }
-
-    
 
     public String[] getCauHinhPhienBan(int masp) {
         ch = phienbanBus.getAll(masp);
@@ -337,7 +352,8 @@ public final class TaoPhieuKiemKe extends JPanel implements ItemListener, Action
         String[] arr = new String[size];
         for (int i = 0; i < size; i++) {
             arr[i] = romBus.getKichThuocById(ch.get(i).getRom()) + "GB - "
-                    + ramBus.getKichThuocById(ch.get(i).getRam()) + "GB - " + mausacBus.getTenMau(ch.get(i).getMausac());
+                    + ramBus.getKichThuocById(ch.get(i).getRam()) + "GB - "
+                    + mausacBus.getTenMau(ch.get(i).getMausac());
         }
         return arr;
     }
@@ -346,13 +362,24 @@ public final class TaoPhieuKiemKe extends JPanel implements ItemListener, Action
     public void itemStateChanged(ItemEvent e) {
         Object source = e.getSource();
         if (source == cbxCauhinh.cbb) {
-           
+
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        
+        if (source == btnAddSp) {
+
+        } else if (source == btnEditSP) {
+
+        } else if (source == btnDelete) {
+
+        } else if (source == btnImport) {
+
+        } else if (source == btnXacNhan) {
+
+        }
+
     }
 }

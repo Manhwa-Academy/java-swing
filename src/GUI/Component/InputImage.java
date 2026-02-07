@@ -6,12 +6,7 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -19,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
-
 
 public class InputImage extends JPanel implements ActionListener {
 
@@ -58,30 +52,25 @@ public class InputImage extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JFileChooser jfc;
-        jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         jfc.setAcceptAllFileFilterUsed(false);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG and  GIF images", "png", "gif", "jpg", "jpeg");
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "png", "gif", "jpg", "jpeg");
         jfc.addChoosableFileFilter(filter);
+
         int returnValue = jfc.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            System.out.println(jfc.getSelectedFile().getPath());
-            this.url_img = (String) jfc.getSelectedFile().getPath();
-            File file = jfc.getSelectedFile();
-            ImageIcon imgicon = new ImageIcon(String.valueOf(jfc.getSelectedFile()));
-            BufferedImage b;
-            try {
-                b = ImageIO.read(file);
-                imgicon = new ImageIcon(scale(imgicon));
-                System.out.println(imgicon.getIconWidth() + ":" + imgicon.getIconHeight());
-                btnChooseImg.setText("");
-                btnChooseImg.setIcon(imgicon);
-            } catch (IOException ex) {
-                Logger.getLogger(InputImage.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            this.url_img = jfc.getSelectedFile().getPath();
 
+            ImageIcon imgicon = new ImageIcon(url_img);
+            imgicon = new ImageIcon(scale(imgicon));
+
+            btnChooseImg.setText("");
+            btnChooseImg.setIcon(imgicon);
         }
     }
+
+    
 
     public Image scale(ImageIcon x) {
         int WIDTH = 250;

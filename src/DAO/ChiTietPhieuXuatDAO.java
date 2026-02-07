@@ -1,14 +1,15 @@
 package DAO;
 
-import DTO.ChiTietPhieuDTO;
-import config.JDBCUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.sql.ResultSet;
+
+import DTO.ChiTietPhieuDTO;
+import config.JDBCUtil;
 
 public class ChiTietPhieuXuatDAO implements ChiTietInterface<ChiTietPhieuDTO> {
 
@@ -28,7 +29,8 @@ public class ChiTietPhieuXuatDAO implements ChiTietInterface<ChiTietPhieuDTO> {
                 pst.setInt(2, t.get(i).getMaphienbansp());
                 pst.setInt(3, t.get(i).getSoluong());
                 int soluong = -(t.get(i).getSoluong());
-                int change = PhienBanSanPhamDAO.getInstance().updateSoLuongTon(t.get(i).getMaphienbansp(), soluong);
+                PhienBanSanPhamDAO.getInstance()
+                        .updateSoLuongTon(t.get(i).getMaphienbansp(), soluong);
                 pst.setInt(4, t.get(i).getDongia());
                 result = pst.executeUpdate();
                 JDBCUtil.closeConnection(con);
@@ -38,12 +40,12 @@ public class ChiTietPhieuXuatDAO implements ChiTietInterface<ChiTietPhieuDTO> {
         }
         return result;
     }
-    
-    public int reset(ArrayList<ChiTietPhieuDTO> t){
+
+    public int reset(ArrayList<ChiTietPhieuDTO> t) {
         int result = 0;
         for (int i = 0; i < t.size(); i++) {
-        PhienBanSanPhamDAO.getInstance().updateSoLuongTon(t.get(i).getMaphienbansp(), +(t.get(i).getSoluong()));
-        delete(t.get(i).getMaphieu()+"");
+            PhienBanSanPhamDAO.getInstance().updateSoLuongTon(t.get(i).getMaphienbansp(), +(t.get(i).getSoluong()));
+            delete(t.get(i).getMaphieu() + "");
         }
         return result;
     }

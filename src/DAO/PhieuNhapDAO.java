@@ -1,18 +1,18 @@
 package DAO;
 
-import DTO.ChiTietPhieuNhapDTO;
-import DTO.ChiTietSanPhamDTO;
-import DTO.PhieuNhapDTO;
-import config.JDBCUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Date;
+
+import DTO.ChiTietPhieuNhapDTO;
+import DTO.ChiTietSanPhamDTO;
+import DTO.PhieuNhapDTO;
+import config.JDBCUtil;
 
 public class PhieuNhapDAO implements DAOinterface<PhieuNhapDTO> {
 

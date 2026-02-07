@@ -1,26 +1,9 @@
     package GUI.Panel;
 
-import BUS.KhachHangBUS;
-import BUS.NhanVienBUS;
-import BUS.PhieuXuatBUS;
-import DTO.PhieuXuatDTO;
-import DTO.TaiKhoanDTO;
-import GUI.Component.InputDate;
-import GUI.Component.InputForm;
-import GUI.Main;
-import GUI.Component.IntegratedSearch;
-import GUI.Component.MainFunction;
-import GUI.Component.Notification;
-import GUI.Component.NumericDocumentFilter;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import GUI.Component.PanelBorderRadius;
-import GUI.Component.SelectForm;
-import GUI.Component.TableSorter;
-import GUI.Dialog.ChiTietPhieuDialog;
-import helper.Formater;
-import helper.JTableExporter;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -37,10 +20,36 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
+
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 import javax.swing.text.PlainDocument;
+
+import BUS.KhachHangBUS;
+import BUS.NhanVienBUS;
+import BUS.PhieuXuatBUS;
+import DTO.PhieuXuatDTO;
+import DTO.TaiKhoanDTO;
+import GUI.Main;
+import GUI.Component.InputDate;
+import GUI.Component.InputForm;
+import GUI.Component.IntegratedSearch;
+import GUI.Component.MainFunction;
+import GUI.Component.Notification;
+import GUI.Component.NumericDocumentFilter;
+import GUI.Component.PanelBorderRadius;
+import GUI.Component.SelectForm;
+import GUI.Component.TableSorter;
+import GUI.Dialog.ChiTietPhieuDialog;
+import helper.Formater;
+import helper.JTableExporter;
 
 public final class PhieuXuat extends JPanel implements ActionListener, KeyListener, PropertyChangeListener, ItemListener {
 
@@ -214,7 +223,7 @@ public final class PhieuXuat extends JPanel implements ActionListener, KeyListen
             if (getRow() < 0) {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn phiếu cần xem!");
             } else {
-                ChiTietPhieuDialog ctp = new ChiTietPhieuDialog(m, "Thông tin phiếu xuất", true, pxBUS.getSelect(getRow()));
+                new ChiTietPhieuDialog(m, "Thông tin phiếu xuất", true, pxBUS.getSelect(getRow()));
             }
         } else if (source == mainFunction.btn.get("cancel")) {
             if (tablePhieuXuat.getSelectedRow() < 0) {

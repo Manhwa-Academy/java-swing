@@ -1,12 +1,11 @@
 package GUI.Dialog;
 
-import DTO.ThongKe.ThongKeTonKhoDTO;
-import GUI.Component.HeaderTitle;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,7 +15,9 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
+
+import DTO.ThongKe.ThongKeTonKhoDTO;
+import GUI.Component.HeaderTitle;
 
 
 public final class ThongKePBSPTonKho extends JDialog{
@@ -58,7 +59,7 @@ public final class ThongKePBSPTonKho extends JDialog{
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class, centerRenderer);
-        TableColumnModel columnModel = table.getColumnModel();
+        // TableColumnModel columnModel = table.getColumnModel();
         
         pnmain_bottom.add(scrollTable);
 

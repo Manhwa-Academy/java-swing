@@ -45,6 +45,10 @@ public class HeDieuHanhBUS {
         return check;
     }
 
+    public int getIndexByMaHDH(int mahdh) {
+        return getIndexByMaMau(mahdh);
+    }
+
     public int getIndexByMaMau(int mamau) {
         int i = 0;
         int vitri = -1;

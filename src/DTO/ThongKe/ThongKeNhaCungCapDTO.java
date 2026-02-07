@@ -8,8 +8,9 @@ public class ThongKeNhaCungCapDTO {
     String tenncc;
     int soluong;
     long tongtien;
-    
-    public ThongKeNhaCungCapDTO(){}
+
+    public ThongKeNhaCungCapDTO() {
+    }
 
     public ThongKeNhaCungCapDTO(int mancc, String tenncc, int soluong, long tongtien) {
         this.mancc = mancc;
@@ -51,38 +52,24 @@ public class ThongKeNhaCungCapDTO {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + this.mancc;
-        hash = 59 * hash + Objects.hashCode(this.tenncc);
-        hash = 59 * hash + this.soluong;
-        hash = 59 * hash + (int) (this.tongtien ^ (this.tongtien >>> 32));
-        return hash;
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        ThongKeNhaCungCapDTO other = (ThongKeNhaCungCapDTO) obj;
+        return this.mancc == other.mancc;
     }
 
-
-    
-
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ThongKeNhaCungCapDTO other = (ThongKeNhaCungCapDTO) obj;
-        return true;
+    public int hashCode() {
+        return Objects.hash(mancc);
     }
 
     @Override
     public String toString() {
-        return "ThongKeNhaCungCapDTO{" + "mancc=" + mancc + ", tenncc=" + tenncc + ", soluong=" + soluong + ", tongtien=" + tongtien + '}';
+        return "ThongKeNhaCungCapDTO{" + "mancc=" + mancc + ", tenncc=" + tenncc + ", soluong=" + soluong
+                + ", tongtien=" + tongtien + '}';
     }
-    
-    
-    
+
 }

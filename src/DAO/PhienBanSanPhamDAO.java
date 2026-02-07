@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class PhienBanSanPhamDAO implements ChiTietInterface<PhienBanSanPhamDTO> {
 
     public static PhienBanSanPhamDAO getInstance() {
@@ -82,7 +81,8 @@ public class PhienBanSanPhamDAO implements ChiTietInterface<PhienBanSanPhamDTO> 
 
     @Override
     public int update(ArrayList<PhienBanSanPhamDTO> t, String pk) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public int update(PhienBanSanPhamDTO ch) {
@@ -124,7 +124,8 @@ public class PhienBanSanPhamDAO implements ChiTietInterface<PhienBanSanPhamDTO> 
                 int gianhap = rs.getInt("gianhap");
                 int giaxuat = rs.getInt("giaxuat");
                 int soluongton = rs.getInt("soluongton");
-                PhienBanSanPhamDTO ch = new PhienBanSanPhamDTO(maphienbansp, masp, ram, rom, mausac, gianhap, giaxuat, soluongton);
+                PhienBanSanPhamDTO ch = new PhienBanSanPhamDTO(maphienbansp, masp, ram, rom, mausac, gianhap, giaxuat,
+                        soluongton);
                 result.add(ch);
             }
             JDBCUtil.closeConnection(con);
@@ -132,8 +133,8 @@ public class PhienBanSanPhamDAO implements ChiTietInterface<PhienBanSanPhamDTO> 
         }
         return result;
     }
-    
-     public ArrayList<PhienBanSanPhamDTO> selectAllpb(String t) {
+
+    public ArrayList<PhienBanSanPhamDTO> selectAllpb(String t) {
         ArrayList<PhienBanSanPhamDTO> result = new ArrayList<>();
         try {
             Connection con = (Connection) JDBCUtil.getConnection();
@@ -150,7 +151,8 @@ public class PhienBanSanPhamDAO implements ChiTietInterface<PhienBanSanPhamDTO> 
                 int gianhap = rs.getInt("gianhap");
                 int giaxuat = rs.getInt("giaxuat");
                 int soluongton = rs.getInt("soluongton");
-                PhienBanSanPhamDTO ch = new PhienBanSanPhamDTO(maphienbansp, masp, ram, rom, mausac, gianhap, giaxuat, soluongton);
+                PhienBanSanPhamDTO ch = new PhienBanSanPhamDTO(maphienbansp, masp, ram, rom, mausac, gianhap, giaxuat,
+                        soluongton);
                 result.add(ch);
             }
             JDBCUtil.closeConnection(con);
@@ -183,26 +185,26 @@ public class PhienBanSanPhamDAO implements ChiTietInterface<PhienBanSanPhamDTO> 
         }
         return ch;
     }
-    
-    public boolean checkImeiExists(ArrayList<ChiTietSanPhamDTO> arr){
-        for (ChiTietSanPhamDTO chiTietSanPhamDTO : arr) {
+
+    public boolean checkImeiExists(ArrayList<ChiTietSanPhamDTO> arr) {
+        for (ChiTietSanPhamDTO ct : arr) {
             try {
                 Connection con = (Connection) JDBCUtil.getConnection();
                 String sql = "SELECT * FROM ctsanpham WHERE maimei = ?";
                 PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
-                pst.setString(1, chiTietSanPhamDTO.getImei());
+                pst.setString(1, ct.getImei());
                 ResultSet rs = pst.executeQuery();
-                while (rs.next()) {
+                if (rs.next()) {
+                    JDBCUtil.closeConnection(con);
                     return false;
                 }
+                JDBCUtil.closeConnection(con);
             } catch (SQLException ex) {
                 Logger.getLogger(PhienBanSanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        Connection con = (Connection) JDBCUtil.getConnection();
         return true;
     }
-    
 
     public int getAutoIncrement() {
         int result = -1;
@@ -229,7 +231,7 @@ public class PhienBanSanPhamDAO implements ChiTietInterface<PhienBanSanPhamDTO> 
         PhienBanSanPhamDTO pbsp = this.selectById(maphienban);
         int result = 0;
         int quantity_change = pbsp.getSoluongton() + soluong;
-        System.out.println("Update:"+quantity_change);
+        System.out.println("Update:" + quantity_change);
         try {
             Connection con = (Connection) JDBCUtil.getConnection();
             String sql = "UPDATE `phienbansanpham` SET `soluongton`=? WHERE maphienbansp = ?";

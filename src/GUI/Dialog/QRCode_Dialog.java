@@ -34,7 +34,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-
 public class QRCode_Dialog extends JDialog {
 
     private final Dimension ds = new Dimension(700, 500);
@@ -45,6 +44,7 @@ public class QRCode_Dialog extends JDialog {
     private JTextArea textArea;
     private ButtonCustom btnExit;
     private Thread t;
+    private volatile boolean running = true;
 
     public QRCode_Dialog(JFrame owner, String title, boolean modal, JTextArea textArea) {
         super(owner, title, modal);
@@ -55,20 +55,20 @@ public class QRCode_Dialog extends JDialog {
     }
 
     public void init() {
-        
+
         this.setLayout(new BorderLayout());
         setSize(700, 500);
         panelCam = new JPanel(new GridLayout(1, 1));
         wCam.setViewSize(cs);
-        wCamPanel.setFillArea(true);
+        // wCamPanel.setFillArea(true);
         wCamPanel.setFPSDisplayed(true);
         panelCam.add(wCamPanel);
         JPanel panelB = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panelB.setPreferredSize(new Dimension(0,40));
+        panelB.setPreferredSize(new Dimension(0, 40));
         panelB.setBackground(Color.WHITE);
         btnExit = new ButtonCustom("Thoát", "success", 14);
         panelB.add(btnExit);
-        this.add(panelCam,BorderLayout.CENTER);
+        this.add(panelCam, BorderLayout.CENTER);
         t = new Thread() {
             @Override
             public void run() {
@@ -98,7 +98,7 @@ public class QRCode_Dialog extends JDialog {
                     }
 
                     if (result != null) {
-                        if(!textArea.getText().contains(result.getText())){
+                        if (!textArea.getText().contains(result.getText())) {
                             soundScan();
                             textArea.append(result.getText() + "\n");
                         } else {
@@ -106,7 +106,7 @@ public class QRCode_Dialog extends JDialog {
                         }
                     }
 
-                } while (true);
+                } while (running);
             }
         };
         t.setDaemon(true);
@@ -115,10 +115,12 @@ public class QRCode_Dialog extends JDialog {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                dispose();
+                running = false; // 🛑 báo thread dừng
+                wCam.close();
                 wCamPanel.stop();
-                t.stop();
+                dispose();
             }
+
         });
     }
 

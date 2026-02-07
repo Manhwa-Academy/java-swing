@@ -28,64 +28,68 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-public class SelectImei extends JDialog{
+public class SelectImei extends JDialog {
 
-    private DefaultListModel<Object> listMode;
     private ArrayList<ChiTietSanPhamDTO> ct;
     private JTextField findImei;
-    private JList list;
+    private DefaultListModel<CheckListItem> listMode;
+    private JList<CheckListItem> list;
+
     private JTextArea jTextArea;
-    
-    public SelectImei(JFrame owner, String title, boolean modal, TaoPhieuXuat taoPhieuXuat, ArrayList<ChiTietSanPhamDTO> ct){
+
+    public SelectImei(JFrame owner, String title, boolean modal, TaoPhieuXuat taoPhieuXuat,
+            ArrayList<ChiTietSanPhamDTO> ct) {
         super(owner, title, modal);
         this.jTextArea = taoPhieuXuat.textAreaImei;
         this.ct = ct;
         init();
         setVisible(true);
     }
-    
-    public SelectImei(JFrame owner, String title, boolean modal, TaoPhieuKiemKe taoPhieuKiemKe, ArrayList<ChiTietSanPhamDTO> ct){
+
+    public SelectImei(JFrame owner, String title, boolean modal, TaoPhieuKiemKe taoPhieuKiemKe,
+            ArrayList<ChiTietSanPhamDTO> ct) {
         super(owner, title, modal);
         this.jTextArea = taoPhieuKiemKe.textAreaImei;
         this.ct = ct;
         init();
         setVisible(true);
     }
-    
-    public void init(){
-        setSize(new Dimension(300,500));
+
+    public void init() {
+        setSize(new Dimension(300, 500));
         setLayout(new BorderLayout());
         listMode = new DefaultListModel<>();
+
         findImei = new JTextField("");
         loadImei();
-        findImei.setPreferredSize(new Dimension(0,40));
+        findImei.setPreferredSize(new Dimension(0, 40));
         findImei.putClientProperty("JTextField.placeholderText", "Tìm kiếm mã IMEI ...");
         findImei.putClientProperty("JTextField.showClearButton", true);
-        findImei.addKeyListener(new KeyAdapter(){
-        @Override
+        findImei.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyReleased(KeyEvent e) {
-            loadImei();
+                loadImei();
             }
         });
         JPanel panelBottom = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panelBottom.setPreferredSize(new Dimension(0,50));
+        panelBottom.setPreferredSize(new Dimension(0, 50));
         panelBottom.setBackground(Color.WHITE);
         ButtonCustom btnXacNhan = new ButtonCustom("Xác nhận", "success", 14);
         panelBottom.add(btnXacNhan);
-        this.add(findImei,BorderLayout.NORTH);
-        this.getContentPane().add(new JScrollPane(list),BorderLayout.CENTER);
-        this.add(panelBottom,BorderLayout.SOUTH);
+        this.add(findImei, BorderLayout.NORTH);
+        this.getContentPane().add(new JScrollPane(list), BorderLayout.CENTER);
+        this.add(panelBottom, BorderLayout.SOUTH);
         setLocationRelativeTo(null);
-        
-        btnXacNhan.addActionListener(new ActionListener(){
+
+        btnXacNhan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
     }
-    
-    public void loadImei(){
+
+    public void loadImei() {
         String search = findImei.getText();
         ArrayList<ChiTietSanPhamDTO> result = new ArrayList<>();
         for (ChiTietSanPhamDTO i : ct) {
@@ -96,21 +100,21 @@ public class SelectImei extends JDialog{
         listMode.setSize(0);
         for (ChiTietSanPhamDTO chiTietSanPhamDTO : result) {
             CheckListItem check = new CheckListItem(chiTietSanPhamDTO.getImei());
-            if(checkImeiArea(chiTietSanPhamDTO.getImei())){
+            if (checkImeiArea(chiTietSanPhamDTO.getImei())) {
                 check.setSelected(true);
             }
             listMode.addElement(check);
         }
-        list = new JList(listMode);
+        list = new JList<>(listMode);
+
         list.setCellRenderer(new CheckListRenderer());
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
-                JList list = (JList) event.getSource();
-                int index = list.locationToIndex(event.getPoint());// Get index of item
-                CheckListItem item = (CheckListItem) list.getModel().getElementAt(index);
-                if(!item.isSelected()){
+                int index = list.locationToIndex(event.getPoint());
+                CheckListItem item = listMode.getElementAt(index);
+                if (!item.isSelected()) {
                     jTextArea.append(item.toString() + "\n");
                 } else {
                     String txt = jTextArea.getText().replaceAll("(" + item.toString() + ")\n", "");
@@ -121,12 +125,12 @@ public class SelectImei extends JDialog{
             }
         });
     }
-    
-    public boolean checkImeiArea(String maImei){
+
+    public boolean checkImeiArea(String maImei) {
         String[] arrimei = jTextArea.getText().split("\n");
         boolean check = false;
-        for (int i=0;i<arrimei.length;i++){
-            if(arrimei[i].equals(maImei)){
+        for (int i = 0; i < arrimei.length; i++) {
+            if (arrimei[i].equals(maImei)) {
                 check = true;
                 return check;
             }

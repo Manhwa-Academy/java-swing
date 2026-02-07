@@ -1,8 +1,5 @@
 package DAO;
 
-import DTO.NhanVienDTO;
-import config.JDBCUtil;
-import DTO.TaiKhoanDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,15 +8,18 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TaiKhoanDAO implements DAOinterface<TaiKhoanDTO>{
-    
-    public static TaiKhoanDAO getInstance(){
+import DTO.TaiKhoanDTO;
+import config.JDBCUtil;
+
+public class TaiKhoanDAO implements DAOinterface<TaiKhoanDTO> {
+
+    public static TaiKhoanDAO getInstance() {
         return new TaiKhoanDAO();
     }
 
     @Override
     public int insert(TaiKhoanDTO t) {
-        int result = 0 ;
+        int result = 0;
         try {
             Connection con = (Connection) JDBCUtil.getConnection();
             String sql = "INSERT INTO `taikhoan`(`manv`,`tendangnhap`,`matkhau`,`manhomquyen`,`trangthai`) VALUES (?,?,?,?,?)";
@@ -39,7 +39,7 @@ public class TaiKhoanDAO implements DAOinterface<TaiKhoanDTO>{
 
     @Override
     public int update(TaiKhoanDTO t) {
-          int result = 0 ;
+        int result = 0;
         try {
             Connection con = (Connection) JDBCUtil.getConnection();
             String sql = "UPDATE `taikhoan` SET `tendangnhap`=?,`trangthai`=?,`manhomquyen`=? WHERE manv=?";
@@ -55,29 +55,28 @@ public class TaiKhoanDAO implements DAOinterface<TaiKhoanDTO>{
         }
         return result;
     }
-    
-    public void updatePass(String email, String password){
-        int result;
+
+    public void updatePass(String email, String password) {
         try {
-            Connection con = (Connection) JDBCUtil.getConnection();
-            String sql = "UPDATE taikhoan tk join nhanvien nv on tk.manv=nv.manv SET `matkhau`=? WHERE email=?";
-            PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
+            Connection con = JDBCUtil.getConnection();
+            String sql = "UPDATE taikhoan tk join nhanvien nv on tk.manv=nv.manv SET matkhau=? WHERE email=?";
+            PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, password);
             pst.setString(2, email);
-            result = pst.executeUpdate();
+            pst.executeUpdate(); // bỏ result
             JDBCUtil.closeConnection(con);
         } catch (SQLException ex) {
             Logger.getLogger(TaiKhoanDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public TaiKhoanDTO selectByEmail(String t) {
         TaiKhoanDTO tk = null;
         try {
             Connection con = JDBCUtil.getConnection();
             String sql = "SELECT * FROM taikhoan tk join nhanvien nv on tk.manv=nv.manv where nv.email = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1,t);
+            pst.setString(1, t);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 int manv = rs.getInt("manv");
@@ -90,27 +89,27 @@ public class TaiKhoanDAO implements DAOinterface<TaiKhoanDTO>{
             }
             JDBCUtil.closeConnection(con);
         } catch (Exception e) {
-            // TODO: handle exception           
+            e.printStackTrace();
         }
         return tk;
     }
-    
-    public void sendOpt(String email, String opt){
-        int result;
+
+    public void sendOpt(String email, String opt) {
+
         try {
             Connection con = (Connection) JDBCUtil.getConnection();
             String sql = "UPDATE taikhoan tk join nhanvien nv on tk.manv=nv.manv SET `otp`=? WHERE email=?";
             PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
             pst.setString(1, opt);
             pst.setString(2, email);
-            result = pst.executeUpdate();
+            pst.executeUpdate(); // là đủ
             JDBCUtil.closeConnection(con);
         } catch (SQLException ex) {
             Logger.getLogger(TaiKhoanDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public boolean checkOtp(String email, String otp){
+
+    public boolean checkOtp(String email, String otp) {
         boolean check = false;
         try {
             Connection con = (Connection) JDBCUtil.getConnection();
@@ -119,7 +118,7 @@ public class TaiKhoanDAO implements DAOinterface<TaiKhoanDTO>{
             pst.setString(1, email);
             pst.setString(2, otp);
             ResultSet rs = (ResultSet) pst.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 check = true;
                 return check;
             }
@@ -131,7 +130,7 @@ public class TaiKhoanDAO implements DAOinterface<TaiKhoanDTO>{
 
     @Override
     public int delete(String t) {
-         int result = 0 ;
+        int result = 0;
         try {
             Connection con = (Connection) JDBCUtil.getConnection();
             String sql = "UPDATE `taikhoan` SET `trangthai`='-1' where manv = ?";
@@ -153,7 +152,7 @@ public class TaiKhoanDAO implements DAOinterface<TaiKhoanDTO>{
             String sql = "SELECT * FROM taikhoan WHERE trangthai = '0' OR trangthai = '1'";
             PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
             ResultSet rs = (ResultSet) pst.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int manv = rs.getInt("manv");
                 String username = rs.getString("tendangnhap");
                 String matkhau = rs.getString("matkhau");
@@ -172,26 +171,26 @@ public class TaiKhoanDAO implements DAOinterface<TaiKhoanDTO>{
     public TaiKhoanDTO selectById(String t) {
         TaiKhoanDTO result = null;
         try {
-            Connection con = (Connection) JDBCUtil.getConnection();
+            Connection con = JDBCUtil.getConnection();
             String sql = "SELECT * FROM taikhoan WHERE manv=?";
-            PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
+            PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, t);
-            ResultSet rs = (ResultSet) pst.executeQuery();
-            while(rs.next()){
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
                 int manv = rs.getInt("manv");
                 String tendangnhap = rs.getString("tendangnhap");
                 String matkhau = rs.getString("matkhau");
                 int trangthai = rs.getInt("trangthai");
                 int manhomquyen = rs.getInt("manhomquyen");
-                TaiKhoanDTO tk = new TaiKhoanDTO(manv, tendangnhap, matkhau, manhomquyen, trangthai);
-                return result;
+                result = new TaiKhoanDTO(manv, tendangnhap, matkhau, manhomquyen, trangthai);
             }
             JDBCUtil.closeConnection(con);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return result;
     }
-    
+
     public TaiKhoanDTO selectByUser(String t) {
         TaiKhoanDTO result = null;
         try {
@@ -200,7 +199,7 @@ public class TaiKhoanDAO implements DAOinterface<TaiKhoanDTO>{
             PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
             pst.setString(1, t);
             ResultSet rs = (ResultSet) pst.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int manv = rs.getInt("manv");
                 String tendangnhap = rs.getString("tendangnhap");
                 String matkhau = rs.getString("matkhau");
@@ -214,7 +213,7 @@ public class TaiKhoanDAO implements DAOinterface<TaiKhoanDTO>{
         }
         return result;
     }
-    
+
     @Override
     public int getAutoIncrement() {
         int result = -1;
@@ -223,12 +222,12 @@ public class TaiKhoanDAO implements DAOinterface<TaiKhoanDTO>{
             String sql = "SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'quanlikhohang' AND   TABLE_NAME   = 'taikhoan'";
             PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
             ResultSet rs2 = pst.executeQuery(sql);
-            if (!rs2.isBeforeFirst() ) {
+            if (!rs2.isBeforeFirst()) {
                 System.out.println("No data");
             } else {
-                while ( rs2.next() ) {
+                while (rs2.next()) {
                     result = rs2.getInt("AUTO_INCREMENT");
-                    
+
                 }
             }
         } catch (SQLException ex) {

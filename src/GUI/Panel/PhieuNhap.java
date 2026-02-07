@@ -1,25 +1,9 @@
 package GUI.Panel;
 
-import BUS.NhaCungCapBUS;
-import BUS.NhanVienBUS;
-import BUS.PhieuNhapBUS;
-import DTO.NhanVienDTO;
-import DTO.PhieuNhapDTO;
-import GUI.Component.InputDate;
-import GUI.Component.InputForm;
-import GUI.Main;
-import GUI.Component.IntegratedSearch;
-import GUI.Component.MainFunction;
-import GUI.Component.NumericDocumentFilter;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import GUI.Component.PanelBorderRadius;
-import GUI.Component.SelectForm;
-import GUI.Component.TableSorter;
-import GUI.Dialog.ChiTietPhieuDialog;
-import helper.Formater;
-import helper.JTableExporter;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -29,17 +13,42 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
+
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.PlainDocument;
+
+import BUS.NhaCungCapBUS;
+import BUS.NhanVienBUS;
+import BUS.PhieuNhapBUS;
+import DTO.NhanVienDTO;
+import DTO.PhieuNhapDTO;
+import GUI.Main;
+import GUI.Component.InputDate;
+import GUI.Component.InputForm;
+import GUI.Component.IntegratedSearch;
+import GUI.Component.MainFunction;
+import GUI.Component.NumericDocumentFilter;
+import GUI.Component.PanelBorderRadius;
+import GUI.Component.SelectForm;
+import GUI.Component.TableSorter;
+import GUI.Dialog.ChiTietPhieuDialog;
+import helper.Formater;
+import helper.JTableExporter;
 
 public final class PhieuNhap extends JPanel implements ActionListener, KeyListener, PropertyChangeListener, ItemListener {
 
@@ -290,7 +299,7 @@ public final class PhieuNhap extends JPanel implements ActionListener, KeyListen
             if (index != -1) {
 //                nhapKho = new TaoPhieuNhap(nv, "view", listPhieu.get(index), m);
 //                m.setPanel(nhapKho);
-                ChiTietPhieuDialog ctsp = new ChiTietPhieuDialog(m, "Thông tin phiếu nhập", true, listPhieu.get(index));
+              new ChiTietPhieuDialog(m, "Thông tin phiếu nhập", true, listPhieu.get(index));
             }
         } else if (source == mainFunction.btn.get("cancel")) {
             int index = getRowSelected();
